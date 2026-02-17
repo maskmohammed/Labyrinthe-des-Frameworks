@@ -1,4 +1,3 @@
-// src/components/IntroScroll.tsx
 import { motion } from "framer-motion";
 import tmerguin from "../assets/images/tmrgin.png";
 
@@ -8,7 +7,7 @@ export default function IntroScroll({ onFinish }: { onFinish: () => void }) {
       <motion.div
         initial={{ y: "100%" }}
         animate={{ y: "-260%" }}
-        transition={{ duration: 60, ease: "linear" }}
+        transition={{ duration: 30, ease: "linear" }}
         className="text-center text-xl leading-relaxed w-[70%] font-serif"
         onAnimationComplete={onFinish}
       >
@@ -46,7 +45,7 @@ export default function IntroScroll({ onFinish }: { onFinish: () => void }) {
           Kidar inspira profondément. Puis fit son premier pas.
         </p>
 
-        {/* Final easter egg image */}
+
         <div className="flex justify-center mt-16">
           <img
             src={tmerguin}

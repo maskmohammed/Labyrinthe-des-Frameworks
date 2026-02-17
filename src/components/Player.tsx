@@ -1,4 +1,4 @@
-// src/components/Player.tsx
+
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { isWall, mapLayout, TILE_SIZE } from "../map/mapData";
@@ -26,8 +26,8 @@ type Room = {
   avatar?: string;
   messages?: string[];
   requiresKey?: string; 
-  x: number;   // ✅ ajoute ceci
-  y: number;   // ✅ ajoute ceci
+  x: number;   
+  y: number;   
 };
 
 type Props = {
@@ -38,8 +38,8 @@ type Props = {
   setCurrentRoomId: (id: string | null) => void;
   onPlayerMove: (pos: { x: number; y: number }) => void;
   completedRooms: Set<string>;
-  inventory: Set<string>;                      // ✅ ajoute
-  setInventory: React.Dispatch<React.SetStateAction<Set<string>>>; // ✅ ajoute
+  inventory: Set<string>;                      
+  setInventory: React.Dispatch<React.SetStateAction<Set<string>>>; 
 };
 
 const SPRITES = {
@@ -81,11 +81,11 @@ export default function Player({
     const moving =
       lastPos.current.x !== pos.x || lastPos.current.y !== pos.y;
 
-    if (!moving) return setFrame(1); // idle
+    if (!moving) return setFrame(1);
 
     const interval = setInterval(
       () => setFrame((f) => (f === 2 ? 0 : f + 1)),
-      160 // speed animation
+      160 
     );
 
     return () => clearInterval(interval);
@@ -198,7 +198,6 @@ export default function Player({
 
     const tile = mapLayout[tileY]?.[tileX];
 
-    // ✅ LOCK TILE
     if (tile === "lock") {
       if (inventory.size > 0) {
         playSound("locked");
@@ -210,14 +209,13 @@ export default function Player({
       return;
     }
 
-    // ✅ TRIGGER TILE
     if (tile === "trigger") {
       if (!inventory.has("universal-key")) {
         playSound("mystery");
         window.dispatchEvent(
           new CustomEvent("challenge-start", { detail: "trigger" })
         );
-        setPos(lastPos.current); // prevents walking forward
+        setPos(lastPos.current); 
       } else {
         setDialogue(["✨ Tu sens encore une énergie étrange..."]);
         setDialogueAvatar("✨");
@@ -225,10 +223,8 @@ export default function Player({
       return;
     }
 
-    // ✅ Détection de room via coordonnées
     const r = rooms.find(room => room.x === tileX && room.y === tileY);
 
-    // ✅ Pas dans une room
     if (!r) {
       setCurrentRoomId(null);
       setDialogue(null);
@@ -236,15 +232,13 @@ export default function Player({
       return;
     }
 
-    // ✅ Room nécessite une clé et tu ne l’as pas
     if (r.requiresKey && !inventory.has(r.requiresKey)) {
       playSound("locked");
       window.dispatchEvent(new CustomEvent("challenge-start", { detail: r.id }));
-      setPos(lastPos.current); // empêche d'entrer
+      setPos(lastPos.current); 
       return;
     }
 
-    // ✅ Entrée autorisée → navigation + transition
     setCurrentRoomId(r.id);
     setDialogue(r.messages ?? []);
     setDialogueAvatar(r.avatar ?? null);
@@ -271,16 +265,15 @@ export default function Player({
         height: PLAYER_SIZE,
       }}
     >
-      {/* Dust particles */}
+      
       {particles.map((p, i) => (
         <Particle key={i} x={p.x} y={p.y} />
       ))}
 
-      {/* ✅ Sprite */}
       <img
         src={
           dir === "right"
-            ? SPRITES.left[frame] // flip left sprite
+            ? SPRITES.left[frame] 
             : SPRITES[dir][frame]
         }
         alt="Kidar"

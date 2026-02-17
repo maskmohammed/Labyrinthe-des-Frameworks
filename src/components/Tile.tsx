@@ -1,4 +1,3 @@
-// src/components/Tile.tsx
 import { motion } from "framer-motion";
 import React from "react";
 import grass from "../assets/images/grass.png";

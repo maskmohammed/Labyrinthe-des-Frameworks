@@ -1,4 +1,3 @@
-// src/components/OverworldMap.tsx
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Player from "./Player";
 import Tile from "./Tile";
@@ -153,13 +152,13 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
         const room = ROOMS.find(r => r.id === currentRoomId);
         setTransitionColor(room?.color ?? "white");
         setEnteringRoom(true);
-        setTimeout(() => setEnteringRoom(false), 350); // durée du flash
+        setTimeout(() => setEnteringRoom(false), 350); 
 
         setDoorTransition(true);
 
         setTimeout(() => {
         setDoorTransition(false);
-        }, 600); // durée totale animation
+        }, 600); 
     };
 
     window.addEventListener("room-enter", handler);
@@ -185,8 +184,8 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
     avatar: r.avatar,
     messages: r.messages,
     requiresKey: r.requiresKey,
-    x: r.x,  // ✅ indispensable
-    y: r.y   // ✅ indispensable
+    x: r.x,  
+    y: r.y   
   }));
 
   useEffect(() => {
@@ -201,7 +200,7 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
         {/* {showIntro && (
         <IntroScroll onFinish={() => setShowIntro(false)} />
         )} */}
-      {/* CAMERA → FOLLOW PLAYER */}
+      
       <motion.div
             animate={cameraShake ? { x: [-2, 2, -2, 2, 0] } : {}}
             transition={{ duration: 0.18 }}
@@ -221,7 +220,7 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
           position: "relative",
         }}
       >
-        {/* PLAYER */}
+        
         <Player
           rooms={rooms}
           roomRefs={roomRefs}
@@ -252,7 +251,6 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
           setInventory={setInventory}
         />
 
-        {/* ROOMS */}
         {/* {ROOMS.map((room, i) => (
             <motion.div
                 key={room.id}
@@ -285,7 +283,6 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
             </motion.div>
         ))} */}
 
-        {/* TILES */}
         {renderedTiles.map((row) =>
             row.map(({ tile, x, y }) => {
                 const key = `${x}-${y}`;
@@ -313,7 +310,6 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
       </motion.div>
       </motion.div>
 
-      {/* DIALOGUE */}
       {dialogue && (
         <DialogueBox
           messages={dialogue}
@@ -322,7 +318,6 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
         />
       )}
 
-      {/* TRANSITION FLASH */}
       {transitionActive && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -344,7 +339,6 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
         {/* </div> */}
 
 
-      {/* VIGNETTE / DARK EDGES */}
         <div
         className="pointer-events-none absolute inset-0 z-40"
         style={{
@@ -407,7 +401,7 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
             onClose={() => setShowAngularGate(false)}
             onSuccess={() => {
             setShowAngularGate(false);
-            navigate("/angular"); // ✅ entrer dans la salle
+            navigate("/angular"); 
             }}
         />
         )}
@@ -416,7 +410,7 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
         <VueGate
             onClose={() => setShowVueGate(false)}
             onSuccess={() => {
-            navigate("/vue"); // ✅ accès à la room
+            navigate("/vue"); 
             setShowVueGate(false);
             }}
         />
@@ -469,7 +463,7 @@ export default function OverworldMap({ inventory, setInventory }: Props) {
             onLoseKey={() => {
             setInventory(prev => {
                 const newSet = new Set(prev);
-                const first = newSet.values().next().value; // retire n’importe quelle clé
+                const first = newSet.values().next().value; 
                 if (first) newSet.delete(first);
                 return newSet;
             });

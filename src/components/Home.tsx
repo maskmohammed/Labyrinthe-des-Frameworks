@@ -60,7 +60,6 @@ export default function Home() {
         />
       </motion.div>
 
-      {/* Button */}
       <motion.button
         onClick={() => setStartIntro(true)}
         initial={{ opacity: 0 }}
@@ -71,7 +70,6 @@ export default function Home() {
         Commencer le Labyrinthe
       </motion.button>
 
-      {/* Group badge */}
       <div className="absolute bottom-3 right-3 flex items-center gap-2 text-lg">
         <img src={groupLogo} alt="Groupe 3" className="w-42 h-28 rounded" />
         <span>Projet réalisé par le Groupe 3</span>
